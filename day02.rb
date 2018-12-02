@@ -36,6 +36,7 @@ catch :outer do
     end
   end
 end
+
 # Alternately:
 
 require 'continuation'
