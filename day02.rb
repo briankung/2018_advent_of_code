@@ -22,19 +22,20 @@ end
 
 catch :outer do
   identifiers.each_index do |outer_index|
-    identifiers.each_index do |inner_index|
-      next if identifiers[outer_index + inner_index + 1].nil?
-      puts "outer: #{outer_index}\t inner: #{inner_index}"
-      first, second = identifiers[outer_index], identifiers[outer_index + inner_index + 1]
+    catch :inner do
+      identifiers.each_index do |inner_index|
+        throw(:inner) if identifiers[outer_index + inner_index + 1].nil?
+        puts "outer: #{outer_index}\t inner: #{inner_index}"
+        first, second = identifiers[outer_index], identifiers[outer_index + inner_index + 1]
 
-      if diff_count(first, second) == 1
-        puts "1st: #{first.join}\n2nd: #{second.join}"
-        throw :outer
+        if diff_count(first, second) == 1
+          puts "1st: #{first.join}\n2nd: #{second.join}"
+          throw :outer
+        end
       end
     end
   end
 end
-
 # Alternately:
 
 require 'continuation'
