@@ -1,7 +1,7 @@
 require "./spec_helper"
 
 def day
-  day = Day03.new(File.read_lines("data/input"))
+  Day03.new(File.read_lines("data/input"))
 end
 
 describe Day03 do
@@ -11,6 +11,16 @@ describe Day03 do
 
   it "has a coordinate_plane" do
     day.coordinate_plane.should be_a(Hash(Int32, Hash(Int32, Array(Day03::Claim))))
+  end
+
+  it "has the right data" do
+    claim = Day03::Claim.new("#1 @ 469,741: 22x26")
+
+    location = day.coordinate_plane[469][741]
+    location.should contain(claim)
+
+    location = day.coordinate_plane[490][766]
+    location.should contain(claim)
   end
 end
 

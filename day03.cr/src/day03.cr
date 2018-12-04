@@ -4,7 +4,7 @@ class Day03
   end
 
   def coordinate_plane
-    self.claims.reduce({} of Int32 => Hash(Int32, Array(Day03::Claim))) do |plane, claim|
+    self.claims[0..0].reduce({} of Int32 => Hash(Int32, Array(Day03::Claim))) do |plane, claim|
       x, y = claim.coordinates[:x], claim.coordinates[:y]
       length, height = claim.dimensions[:x], claim.dimensions[:y]
 
@@ -39,6 +39,14 @@ class Day03
       @claim_number = matches[0]
       @coordinates = {x: matches[1], y: matches[2] }
       @dimensions = {x: matches[3], y: matches[4] }
+    end
+
+    def to_s
+      "{claim_number: #{@claim_number}, coordinates: {x: #{@coordinates[:x]}, y: #{@coordinates[:y]}}, dimensions: {x: #{@dimensions[:x]}, y: #{@dimensions[:y]}}"
+    end
+
+    def ==(other)
+      @claim_number == other.claim_number && @coordinates == other.coordinates && @dimensions == other.dimensions
     end
   end
 end
