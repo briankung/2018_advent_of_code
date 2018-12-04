@@ -1,8 +1,28 @@
-module Day03
-  VERSION = "0.1.0"
+class Day03
+  def initialize(input : Array(String))
+    @input = input
+  end
 
-  def self.claims
-    File.read_lines("data/input").map {|input| Claim.new(input)}
+  def coordinate_plane
+    self.claims.reduce({} of Int32 => Hash(Int32, Array(Day03::Claim))) do |plane, claim|
+      x, y = claim.coordinates[:x], claim.coordinates[:y]
+      length, height = claim.dimensions[:x], claim.dimensions[:y]
+
+      (0...length).each do |x_offset|
+        (0...height).each do |y_offset|
+          plane[x + x_offset] ||= {} of Int32 => Array(Day03::Claim)
+          plane[x + x_offset][y + y_offset] ||= [] of Day03::Claim
+
+          plane[x + x_offset][y + y_offset] << claim
+        end
+      end
+
+      plane
+    end
+  end
+
+  def claims
+    @input.map {|input| Claim.new(input)}
   end
 
   class Claim
