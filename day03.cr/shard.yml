@@ -1,0 +1,13 @@
+name: day03
+version: 0.1.0
+
+authors:
+  - Brian Kung <brian@callmekung.com>
+
+targets:
+  day03:
+    main: src/day03.cr
+
+crystal: 0.27.0
+
+license: MIT
