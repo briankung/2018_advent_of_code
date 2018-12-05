@@ -22,6 +22,18 @@ describe Day03 do
     location = day.coordinate_plane[490][766]
     location.should contain(claim)
   end
+
+  it "has a real big max x" do
+    (day.max_x > 800).should be_true
+  end
+
+  it "has a real big max_y" do
+    (day.max_y > 800)
+  end
+
+  it "prints" do
+    day.print
+  end
 end
 
 def claim
